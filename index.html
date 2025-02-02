@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet">
+  <link id="stylesheet" rel="stylesheet" href="highlightjs/highlightjs-theme-light.css">
+  <link rel="stylesheet" href="switch-button.css">
+  <link rel="stylesheet" href="reset.css">
+  <link rel="stylesheet" href="style.css">
+  <title>RxJs</title>
+</head>
+
+<body>
+  <h1>RxJs</h1>
+
+  <!-- darkmode switch button -->
+  <input type="checkbox" id="darkmode-toggle" onchange="handleDarkMode()" />
+  <label for="darkmode-toggle">
+    <svg version="1.1" class="sun" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+      y="0px" viewBox="0 0 496 496" style="enable-background:new 0 0 496 496;" xml:space="preserve">
+
+      <rect x="152.994" y="58.921" transform="matrix(0.3827 0.9239 -0.9239 0.3827 168.6176 -118.5145)" width="40.001"
+        height="16" />
+      <rect x="46.9" y="164.979" transform="matrix(0.9239 0.3827 -0.3827 0.9239 71.29 -12.4346)" width="40.001"
+        height="16" />
+      <rect x="46.947" y="315.048" transform="matrix(0.9239 -0.3827 0.3827 0.9239 -118.531 50.2116)" width="40.001"
+        height="16" />
+
+      <rect x="164.966" y="409.112" transform="matrix(-0.9238 -0.3828 0.3828 -0.9238 168.4872 891.7491)" width="16"
+        height="39.999" />
+
+      <rect x="303.031" y="421.036" transform="matrix(-0.3827 -0.9239 0.9239 -0.3827 50.2758 891.6655)" width="40.001"
+        height="16" />
+
+      <rect x="409.088" y="315.018" transform="matrix(-0.9239 -0.3827 0.3827 -0.9239 701.898 785.6559)" width="40.001"
+        height="16" />
+
+      <rect x="409.054" y="165.011" transform="matrix(-0.9239 0.3827 -0.3827 -0.9239 891.6585 168.6574)" width="40.001"
+        height="16" />
+      <rect x="315.001" y="46.895" transform="matrix(0.9238 0.3828 -0.3828 0.9238 50.212 -118.5529)" width="16"
+        height="39.999" />
+      <path d="M248,88c-88.224,0-160,71.776-160,160s71.776,160,160,160s160-71.776,160-160S336.224,88,248,88z M248,392
+                    c-79.4,0-144-64.6-144-144s64.6-144,144-144s144,64.6,144,144S327.4,392,248,392z" />
+      <rect x="240" width="16" height="72" />
+      <rect x="62.097" y="90.096" transform="matrix(0.7071 0.7071 -0.7071 0.7071 98.0963 -40.6334)" width="71.999"
+        height="16" />
+      <rect y="240" width="72" height="16" />
+
+      <rect x="90.091" y="361.915" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 -113.9157 748.643)" width="16"
+        height="71.999" />
+      <rect x="240" y="424" width="16" height="72" />
+
+      <rect x="361.881" y="389.915" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 397.8562 960.6281)" width="71.999"
+        height="16" />
+      <rect x="424" y="240" width="72" height="16" />
+      <rect x="389.911" y="62.091" transform="matrix(0.7071 0.7071 -0.7071 0.7071 185.9067 -252.6357)" width="16"
+        height="71.999" />
+    </svg>
+    <svg version="1.1" class="moon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+      x="0px" y="0px" viewBox="0 0 49.739 49.739" style="enable-background:new 0 0 49.739 49.739;" xml:space="preserve">
+      <path d="M25.068,48.889c-9.173,0-18.017-5.06-22.396-13.804C-3.373,23.008,1.164,8.467,13.003,1.979l2.061-1.129l-0.615,2.268
+           c-1.479,5.459-0.899,11.25,1.633,16.306c2.75,5.493,7.476,9.587,13.305,11.526c5.831,1.939,12.065,1.492,17.559-1.258v0
+           c0.25-0.125,0.492-0.258,0.734-0.391l2.061-1.13l-0.585,2.252c-1.863,6.873-6.577,12.639-12.933,15.822
+           C32.639,48.039,28.825,48.888,25.068,48.889z M12.002,4.936c-9.413,6.428-12.756,18.837-7.54,29.253
+           c5.678,11.34,19.522,15.945,30.864,10.268c5.154-2.582,9.136-7.012,11.181-12.357c-5.632,2.427-11.882,2.702-17.752,0.748
+           c-6.337-2.108-11.473-6.557-14.463-12.528C11.899,15.541,11.11,10.16,12.002,4.936z" />
+    </svg>
+  </label>
+
+  <p>RxJs არის ბიბლიოთეკა ასინქრონული და event-based პროგრამების კომპოზიციისთვის ობზერვებლების გამოყენებით. მას
+    გააჩნია მხოლოდ ერთი ტიპი: Observable და სატელიტური ტიპები (Observer, Schedulers, Subjects) და ოპერატორები,
+    რომლებიც გადმოღებულია Native Javascript Array-ს კლასის მეთოდებიდან (map, filter, reduce, every და ა.შ) იმისათვის
+    რომ ვაკონტროლოთ ასინქრონული მოვლენები</p>
+  <p>მაგალითად:</p>
+
+  <pre><code>
+    import { fromEvent } from 'rxjs';
+
+    fromEvent(document, 'click').subscribe(() => console.log('Clicked!'));
+    </code></pre>
+
+  <h2>მიმოხილვა</h2>
+
+  <p>RxJs-ის ყველაზე ძლიერი მხარე წარმოადგენს მის უნარს: აწარმოოს მნიშვნელობები სუფთა ფუნქციებიდან, რაც იძლევა ნაკლები
+    ხარვეზების გარანტიას, მაგალითად, ჩვეულებრივ შემთხვევაში შესაძლებელია ჯავასკრიპტის event listener-ის გამოყენება
+    შემდეგნაირად:</p>
+  <pre><code>
+    let count = 0;
+
+    document.addEventListener('click', () => console.log(`Clicked ${++count} times`));
+    </code></pre>
+
+  <p>მაგრამ, RxJs-ის გამოყენებით, ჩვენ შეგვიძლია მოვახდინოთ state-ის იზოლაცია:</p>
+  <pre><code>
+    import { fromEvent, scan } from 'rxjs';
+
+    fromEvent(document, 'click').pipe(scan((count) => count + 1, 0))
+    .subscribe((count) => console.log(`Clicked ${count} times`));
+    </code></pre>
+
+  <p><span class="new-word">scan</span> ოპერატორი მუშაობს ზუსტად ისე, როგორც reduce მასივზე, ის იღებს value-ს
+    პარამეტრად, რომელიც შემდეგ გაგვაქვს callback ფუნქციაში, callback-დან დაბრუნებული მნიშვნელობა ხდება შემდეგი
+    callback ფუნქციის არგუმენტი.</p>
+  <h2>Observables</h2>
+  <p>ობზერვებლები წარმოადგენენ ნაკრებს ერთი ან რამდენიმე ღირებულების</p>
+  <p>მაგალითად. მოცემული ობზერვებლი ფუშავს ციფრებს: 1,2,3 მყისიერად (სინქრონულად) როცა მას უსაბსქრაიბდებიან ხოლო ციფრი
+    4 ერთი წამის შემდეგ რაც დასაბსქრაიბებიდან, შემდეგ subscription დასრულდება:
+  </p>
+
+  <pre><code>
+    import { Observable } from 'rxjs';
+
+    const observable = new Observable((subscriber) => {
+      subscriber.next(1);
+      subscriber.next(2);
+      subscriber.next(3);
+      setTimeout(() => {
+        subscriber.next(4);
+        subscriber.complete();
+      }, 1000);
+    });
+    </code></pre>
+  <p>იმისათვის, რომ რომ ამ მნიშვნელობებს მივწვდეთ, უნდა დავუსაბსქრაიბდეთ მოცემულ ობზერვებლს</p>
+  <pre><code>
+    import { Observable } from 'rxjs';
+
+    const observable = new Observable((subscriber) => {
+      subscriber.next(1);
+      subscriber.next(2);
+      subscriber.next(3);
+      setTimeout(() => {
+        subscriber.next(4);
+        subscriber.complete();
+      }, 1000);
+    });
+    
+    console.log('just before subscribe');
+    observable.subscribe({
+      next(x) {
+        console.log('got value ' + x);
+      },
+      error(err) {
+        console.error('something wrong occurred: ' + err);
+      },
+      complete() {
+        console.log('done');
+      },
+    });
+    console.log('just after subscribe');
+    </code></pre>
+
+  <p>რაც გვაძლევს შემდეგ ტექსტს კონსოლში:</p>
+  <pre><code>  
+    just before subscribe
+    got value 1
+    got value 2
+    got value 3
+    just after subscribe
+    got value 4
+    done
+    </code></pre>
+
+  <h2>Pull Versus Push</h2>
+
+  <p><span class="new-word">pull</span> და <span class="new-word">push</span> არის 2 განსხვავებული პროტოკოლი რომელიც
+    აღწერს ურთიერთობას data producer-სა და data consumer-ს შორის.</p>
+  <p>pull სისტემაში, consumer წყვეტს როდის მიიღებს data-ს data producer-სგან, თუმცა producer-მა არ იცის, რომ მისგან
+    ხდება data-ს ექსტრაქცია consumer-ის მიერ.</p>
+  <p>ყველა ჯავასკრიპტის ფუნქცია არის pull სისტემა, ფუნქცია არის data-ს producer ხოლო კოდი, რომელიც იძახებს ამ ფუნქციას
+    იღებს ამ ფუნქციის დაბრუნებულ მნიშვნელობას ერთჯერადად ე.ი - იღებს ფუნქციის single return value-ს</p>
+  <p>ES5-მა წარმოადგინა generator ფუნქციები და იტერატორები (ფუნქციები), ახალი ტიპის pull სისტემა. კოდი, რომელიც
+    იძახებს iterator.next() მეთოდს არის consumer, რომელიც იღებს არა ერთს, არამედ რამდენიმე მნიშვნელობას იტერატორიდან
+    (producer-დან)</p>
+
+  <p><span class="new-word">push</span> სისტემაში producer განსაზღვრავს როდის გაგზავნოს data consumer-თან. consumer-მა
+    არ იცის როდის მიიღებს data-ს .</p>
+  <p>პრომისები ყველაზე გავრცელებული push ტიპია ჯავასკრიპტში დღესდღეობით. პრომისი (producer) აწვდის უკვე დარეზოლვებულ
+    data-ს რეგისტრირებულ callback-ს (consumers), თუმცა ფუნქციებისგან განსხვავებით ამ შემთხვევაში გვაქვს პრომისი,
+    რომელიც წყვეტს როდის გადასცეს value callback ფუნქციას.</p>
+  <p>RxJs გვთავაზობს ობზერვებლებს, ახალ push სისტემას ჯავასკრიპტისთვის. ობზერვებლი არის მწარმოებელი (producer)
+    რამდენიმე მნიშვნელობის (value), რომელსაც აწვდის ობზერვერს (consumers).</p>
+  <p>ობზერვებლში გვაქვს <span class="new-word">next</span>, <span class="new-word">error</span> და <span
+      class="new-word">complete</span> მეთოდები, რომელთა მეშვეობით ჩვენ შეგვიძლია ვმართოთ ობზერვებლში ჩაწოდებული
+    data. მაგალითად: next მეთოდის მეშვეობით, ჩვენ ვაწვდით (ვაემიტებთ) data-ს ობზერვებლში, error მეთოდის მეშვეობით
+    ვაემიტებთ ხარვეზებს, ხოლო complete-ის დახმარებით შეგვიძლია დავასრულოთ ობზერვებლი, ამ მეთოდის გამოყენების შემდეგ
+    next ფუნქციით გადაცემული დატა არ ჩაეწოდება ობზერვებლს, რადგან complete მეთოდი, მისი ბუნებიდან გამომდინარე,
+    გულისხმობს სტრიმის დასრულებას:
+  </p>
+  <pre><code>  
+  import { Observable } from 'rxjs';
+
+  const observable = new Observable(function subscribe(subscriber) {
+    subscriber.next(1);
+    subscriber.next(2);
+    subscriber.next(3);
+    subscriber.complete();
+    subscriber.next(4); // Is not delivered because it would violate the contract
+  });
+    </code></pre>
+
+  <p>კარგი იდეა ჩავსვათ ობზერვებლი try catch ბლოკში რომ დავიჭიროთ ხარვეზები</p>
+  <pre><code>  
+  import { Observable } from 'rxjs';
+
+  const observable = new Observable(function subscribe(subscriber) {
+    try {
+      subscriber.next(1);
+      subscriber.next(2);
+      subscriber.next(3);
+      subscriber.complete();
+    } catch (err) {
+      subscriber.error(err); // delivers an error if it caught one
+    }
+  });
+
+</code></pre>
+
+  <p>ობზერვებლის კიდევ ერთი უნიკალურობა: <span class="new-word">unsubscribe</span>. unsubscribe() არის მეთოდი რომლის
+    მეშვეობით განსხვავებით პრომისებისგან ჩვენ შეგვიძლია შევწყვიტოთ სტრიმი და უბრალოდ აღარ მივიღოთ დატა, ეს
+    განსაკუთრებით გამოსადეგია memory leak-ის პრევენციისთვის</p>
+  <pre><code>  
+  import { Observable } from 'rxjs';
+
+  const observable = new Observable(function subscribe(subscriber) {
+    // Keep track of the interval resource
+    const intervalId = setInterval(() => {
+      subscriber.next('hi');
+    }, 1000);
+  
+    // Provide a way of canceling and disposing the interval resource
+    return function unsubscribe() {
+      clearInterval(intervalId);
+    };
+  });
+
+</code></pre>
+  <p>ზემოთ მოყვანილი მაგალითი წარმოადგენს ობზერვებლის შეჩერებას clearInterval მეთოდის გამოყენებით, ხოლო ქვევით,
+    unsubscribe-ის გამოყენებით:</p>
+  <pre><code>
+  data$: Observable&lt;SomeDataType&gt;
+  
+  this.data$.subscribe((data) => {
+      console.log(data);
+  })
+  
+  this.data$.unsubscribe(); // unsubscribe to observable
+    </code></pre>
+
+  <h2>Operators</h2>
+
+  <p>RxJs ძირითადად დამოკიდებულია მის ოპერატორებზე, ოპერატორების საშუალებით ჩვენ მარტივად შეგვიძლია ვაკონტროლოთ
+    ობზერვებლთან დაკავშირებული ნებისმიერი ასინქრონული ოპერაცია.
+  </p>
+
+  <p>ოპერატორები არიან ფუნქციები. არსებობს <span class="important-word">2 ტიპის ოპერატორი</span></p>
+  <p><span class="new-word">pipable operators</span>, ეს არის ოპერატორების ტიპი რომელთაც შეუძლიათ დაექვემდებარონ
+    ობზერვებლების pipe ოპერაციას შემდეგი სინტაქსით: <span
+      class="important-word">observableInstance.pipe(operator)</span> ან, უფრო გავრცელებული ფორმით: <span
+      class="important-word">observableInstance.pipe(operatorFactory()).</span> operatorFactory წარმოადგენს
+    ოპერატორების ნაკრებს, როგორებიცაა <span class="important-word">filter(...)</span> და <span
+      class="important-word">mergeMap(...)</span>.</p>
+  <p>როცა pipeable ოპერატორის გამოძახება ხდება, ისინი <span class="important-word">არ ცვლიან</span> არსებულ
+    ობზერვებლს, ამის ნაცვლად ისინი აბრუნებენ ახალ ობზერვებლს, რომლის subscription ლოგიკა დაფუძნებულია პირველ
+    ობზერვებლზე.</p>
+  <ol>
+    <li class="theory-word">pipeable ოპერატორი არის ფუნქცია, რომელიც იღებს ობზერვებლს როგორც პარამეტრს და აბრუნებს
+      ახალ ობზერვებლს. ეს არის სუფთა ოპერაცია, პირველი (გადაცემული) ობზერვებლი <span class="important-word">არ
+        იცვლება</span>.</li>
+    <li class="theory-word">pipeable factory არის ფუნქცია რომელსაც შეუძლია მიიღოს პარამეტრები რათა შექმნას კონტექსტი
+      და დააბრუნოს pipeable ოპერატორი. factory-ს პარამეტრები ეკუთვნის ოპერატორის lexical scope-ს.</li>
+  </ol>
+  <p>pipeable ოპერატორი თავისი იდეით არის სუფთა ფუნქცია, რომელიც იღებს ობზერვებლს როგორც პარამეტრს და აბრუნებს ახალ
+    ობზერვებლს. subscribe პროცესი დაბრუნებულ ობზერვებლზე ასევე ნიშნავს subscribe-ს პირველად ობზერვებლზე.
+  </p>
+  <p><span class="new-word">Creation Operator</span> არის მეორე ტიპის ოპერატორი, რომლებიც შეგვიძლია მოვიხსენიოთ როგორც
+    standalone ფუნქციები რომლებიც ქმიან ახალ ობზერვებლს. მაგალითად:
+  <pre><code>
+        of(1,2,3)
+    </code></pre>
+  <p>ეს კოდი ქმნის ახალ ობზერვებლს, რომელიც აწვდის (emits) ციფრებს: 1-ს,2-ს და 3-ს ერთი მეორეს მიყოლებით.</p>
+  </p>
+
+  <p>მეორე მაგალითში გვაქვს <span class="important-word">map()</span> ოპერატორი, რომელიც ანალოგია Array.map() მეთოდის:
+  </p>
+  <pre><code>
+        import { of, map } from 'rxjs';
+
+        of(1, 2, 3)
+          .pipe(map((x) => x * x))
+          .subscribe((v) => console.log(`value: ${v}`));
+
+        // Logs:
+        // value: 1
+        // value: 4
+        // value: 9
+    </code></pre>
+  <p>კიდევ ერთი სასარგებლო მეთოდია <span class="new-word">first()</span></p>
+  <pre><code>
+        import { of, first } from 'rxjs';
+        
+        of(1, 2, 3)
+        .pipe(first())
+        .subscribe((v) => console.log(`value: ${v}`));
+        
+        // Logs:
+        // value: 1
+    </code></pre>
+  <p>first() მეთოდი ჭრის ობზერვებლს და გამოაქვს მხოლოდ პირველი value ობზერვებლიდან.</p>
+
+  <h2>Piping</h2>
+
+  <p>Pipeable ოპერატორები არიან ფუნქციები, ისინი შეიძლება იქნან გამოყენებულები როგორც ჩვეულებრივი ფუნქციები: op(obs),
+    თუმცა პრაქტიკაში, ბევრი pipeable ოპერატორის ერთ რიგად გამოყენება კოდის ხარისხს ამცირებს:
+    p4()(op3()(op2()(op1()(obs)))). ამ მიზეზით
+    ობზერვებლებს აქვთ მეთოდი .pipe() რომელიც ასრულებს ანალოგიურ ფუნქციას, თუმცა გაცილებით სუფთა კოდით</p>
+  <pre><code>
+        obs.pipe(op1(), op2(), op3(), op4());
+    </code></pre>
+
+  <h2>Creation Operators</h2>
+
+  <p>creation operator-ები განსხვავდება pipeable ოპერატორებისგან. ისინი არიან ფუნქციები რომელთაც შეუძლიათ შექმნან
+    ობზერვებლები წინასწარ განსაზღვრული თვისებებით ან სხვა ობზერვებლებთან შეერთების გზით. ტიპიური creation ოპერატორის
+    მაგალითი იქნება <span class="new-word">interval</span> ფუნქცია. ის იღებს სუფთა ციფრს (არაობზერვებლს) როგორც
+    პარამეტრს და აბრუნებს ობზერვებლს:</p>
+  <pre><code>
+        import { interval } from 'rxjs';
+
+        const observable = interval(1000 /* number of milliseconds */);
+    </code></pre>
+  <p>Creation ოპერატორების სრული ჩამონათვალის <a class="link"
+      href="https://rxjs.dev/guide/operators#creation-operators-list" target="_blank">Link</a></p>
+
+  <h2>High Order Observables</h2>
+
+  <p>ხანდახან გვაქვს შემთხვევა, როცა ობზერვებლის შიგნით გვაქვს კიდევ ერთი ან მეტი ობზერვებლი. RxJs შიდა ობზერვებლის
+    მეთოდები გვაძლევს საშუალებას დავუსაბსქრაიბდეთ შიდა ობზერვებლებს ჩვენთვის მოსახერხებელი გზით.</p>
+  <pre><code>
+        const fileObservable = urlObservable.pipe(map((url) => http.get(url)));
+    </code></pre>
+  <p>მოცემული გვაქვს ყველაზე მარტივი შემთხვევა როცა http.get() მეთოდი აბრუნებს ობზერვებლს თითოეული მისამართიდან. ახლა
+    გვაქვს ობზერვებლი, რომელსაც ჩანესტილი აქვს რამდენიმე ობზერვებლი, თუ გვსურს, რომ ჩანესტილი ობზერვებლებიდან
+    გამოვიტანოთ მხოლოდ ერთი, რომელიც საბოლოოდ დაგვიბრუნებს მხოლოდ ერთ ობზერვებლს, ამისათვის ვიყენებთ <span
+      class="new-word">concatAll()</span> მეთოდს:</p>
+  <pre><code>
+        const fileObservable = urlObservable.pipe(
+            map((url) => http.get(url)),
+            concatAll()
+        );
+    </code></pre>
+  <p>concatAll() ოპერატორი უსაბსქრაიბდება თითოეულ შიდა ობზერვებლს რომელიც გარე ობზერვებლიდან გამოდის და აკოპირებს ყველა
+    და-emit-ებულ value-ს სანამ ობზერვებლი დასრულდება და გადაინაცვლებს შემდეგ შიდა ობზერვებლზე. მისი მსგავსი სასარგებლო
+    ოპერატორებია:</p>
+  <ul>
+    <li><span class="new-word">mergeAll()</span>- უსაბსქრაიბდება თითოეულ შიდა ობზერვებლს data-ს მოსვლისთანავე,
+      შემდეგ თითოეულ value-ს ა-emit-ებს (გამოაქვს) მოსვლის მომენტიდან.</li>
+    <li><span class="new-word">switchAll()</span>- უსაბსქრაიბდება პირველ შიდა ობზერვებლს data-ს მოსვლისთანავე,
+      შემდეგ თითოეულ value-ს ა-emit-ებს (გამოაქვს) მოსვლის მომენტიდან, მაგრამ როცა მეორე ობზერვებლის data მოვა, პირველ
+      ობზერვებლს მოხსნის subscribe-ს (unsubscribe) და დაუსაბსქრაიბდება ახალს (მეორეს).</li>
+    <li><span class="new-word">exhaustAll()</span>- უსაბსქრაიბდება პირველ შიდა ობზერვებლს data-ს მოსვლისთანავე,
+      შემდეგ თითოეულ value-ს ა-emit-ებს (გამოაქვს) მოსვლის მომენტიდან, თუმცა არ აქცევს ყურადღებას სხვა ობზერვებლებისგან
+      მოსულ data-ს სანამ პირველიდან ჯერ კიდევ მოდის data, პირველიდან data-ს მოსვლის დასრულებისთანავე გადაინაცვლებს მეორე
+      ობზერვებლზე.</li>
+  </ul>
+  <p>ზუსტად ისე, როგორც ბევრი ბიბლიოთეკა და პროგრამული ენა აერთიანებს map() და flat() მეთოდებს ერთ flapMap() მეთოდად,
+    ასევე გვაქვს map
+    მეთოდების ექვივალენტი მეთოდები RxJs-ის flattening ოპერატორების: <span class="new-word">concatMap(), mergeMap(),
+      switchMap()</span> და <span class="new-word">exhaustMap()</span>.
+  </p>
+
+  <h2>Custom Operators</h2>
+
+  <p>იმისათვის, რომ შევქმნათ custom ოპერატორი აუცილებელია დავაიმპორტოთ და დავაბრუნოთ pipe ოპერატორი RxJs-დან:</p>
+  <pre><code>
+    import { pipe, filter, map } from 'rxjs';
+
+    function discardOddDoubleEven() {
+      return pipe(
+        filter((v) => !(v % 2)),
+        map((v) => v + v)
+      );
+    }
+  </code></pre>
+
+  <h2>Subscription</h2>
+  <p>რა არის subscription? subscription არის ობიექტი რომელიც წარმოადგენს ერთჯერად რესურსს რომელიც, როგორც წესი,
+    გამოიყენება ობზერვებლების 'აღსრულებისთვის' (execution). მას აქვს ერთი მნიშვნელოვანი მეთოდი: unsubscribe(), რომელიც
+    არ იღებს არანაირ პარამეტრს და უბრალოდ ანადგურებს რესურსს, რომელსაც ფლობდა subscription-ი. RxJs-ის წინა ვერსიებში
+    unsubscribe გამოიყენებოდა 'Disposable' სახელით.</p>
+  <pre><code>
+    import { interval } from 'rxjs';
+
+    const observable = interval(1000);
+    const subscription = observable.subscribe(x => console.log(x));
+    // Later:
+    // This cancels the ongoing Observable execution which
+    // was started by calling subscribe with an Observer.
+    subscription.unsubscribe();
+  </code></pre>
+  <p>subscription-ის კიდევ ერთი პლიუსი გამოიხატება იმაში, რომ შეგვიძლია რამდენიმე subscription შევკრიბოთ და ერთდროულად
+    ვმართოთ:</p>
+  <pre><code>
+    import { interval } from 'rxjs';
+
+    const observable1 = interval(400);
+    const observable2 = interval(300);
+
+    const subscription = observable1.subscribe(x => console.log('first: ' + x));
+    const childSubscription = observable2.subscribe(x => console.log('second: ' + x));
+
+    subscription.add(childSubscription);
+
+    setTimeout(() => {
+      // Unsubscribes BOTH subscription and childSubscription
+      subscription.unsubscribe();
+    }, 1000);
+  </code></pre>
+  <p>RxJs-ის <span class="new-word">add()</span> მეთოდის მეშვეობით შეგვიძლია subscription-ში ჩავამატოთ სასურველი
+    რაოდენობის ობზერვებლები და გავაერთიანოთ. ამით შეგვიძლია unsubscribe მხოლოდ ერთ subscription-ზე გამოვიყენოთ ისე, რომ
+    unsubscribe იმუშავებს ყველა subscribe-ში მყოფ ობზერვებლზე.</p>
+
+  <h2>Subject</h2>
+
+  <p>რა არის Subject? RxJs Subject არის სპეციალური ტიპის ობზერვებლი, რომელიც საშუალებას გვაძლევს, რომ value-ები
+    განაწილდეს 1-ზე მეტ ობზერვებლზე.</p>
+  <p><span class="important-word">ყველა Subject არის ობზერვებლი</span>. მასზე დასაბსქრაიბება გვაძლევს ობზერვერს, რომელიც
+    მიიღებს value-ბს ნორმალურად.</p>
+  <p><span class="important-word">ყველა Subject არის ობზერვერი</span>. ეს არის ობიექტი next(), error(), და complete()
+    მეთოდებით. იმისათვის, რომ მივაწოდოთ ახალი value ობზერვერს, უბრალოდ გამოვიძახოთ next(value) ფუნქცია.</p>
+  <p>ქვემოთ მოცემულ მაგალითში გვაქვს 2 ობზერვერი რომელიც მიმაგრებულია Subject-ზე და ვაწვდით value-ებს Subject-ს</p>
+  <pre><code>
+    import { Subject } from 'rxjs';
+
+    const subject = new Subject<number>();
+
+    subject.subscribe({
+      next: (v) => console.log(`observerA: ${v}`),
+    });
+    subject.subscribe({
+      next: (v) => console.log(`observerB: ${v}`),
+    });
+
+    subject.next(1);
+    subject.next(2);
+
+    // Logs:
+    // observerA: 1
+    // observerB: 1
+    // observerA: 2
+    // observerB: 2
+  </code></pre>
+  <p>Subject-ის უნიკალურობას წარმოადგენს ის, რომ იგი ობზერვერიცაა და ობზერვებლიც, მასზე შესაძლებელია როგორც value-ების
+    ჩაწოდება, ასევე მასზე დასაბსქრაიბება და გარდა ამისა თუ სხვა კლასიკურ შემთხვევებში ერთ ობზერვერს ერთი ობზერვებლი
+    ყავს, subject-ის შემთხვევაში ჩვენ შეგვიძლია რამოდენიმე სხვადასხვა მისამართიდან დაუვსაბსქრაიბდეთ მას, ისე როგორც
+    ზევით მაგალითშია მოცემული.</p>
+  <p>საყურადღებო მახასიათებლები Subject-სთვის:</p>
+  <ul>
+    <li class="theory-word">მას არ გააჩნია არანაირი პირველადი მნიშვნელობა,</li>
+    <li class="theory-word">როდესაც ახალი ობზერვერი უსაბსქრაიბდება Subject-ს, ის იღებს და-emit-ებულ value-ს მხოლოდ
+      საბსქრაიბის შემდეგ,</li>
+    <li class="theory-word">სხვა ობზერვებლებისგან განსხვავებით, მას შეუძლია დაუსაბსქრაიბდნენ 1-ზე მეტი ობზერვერები,
+      რომლებიც ერთი და იგივე value-ს მიიღებენ.</li>
+  </ul>
+
+  <h2>BehaviourSubject</h2>
+
+  <p>Subject-ის კონტრასტულად გვაქვს BehaviourSubject. მისი მთავარი განმასხვავებელი ფაქტორი წარმოადგენს და-emit-ებული
+    value-ების ჩაწოდების პროცესს ობზერვერისთვის, მაგალითად: იმ შემთხვევაში თუ ვიყენებთ Subject-ს, ჩაწოდებული value-ების
+    მისაღებად აუცილებელია, რომ .next() მეთოდი მოვათავსოთ subscription-ის ქვევით ე.ი ჯერ დავუსაბსქრაიბდეთ, ხოლო შემდეგ
+    ჩავაწოდოთ. BehaviourSubject-ის შემთხვევაში ანალოგიურია, თუმცა ერთი მნიშვნელოვანი განსხვავება ისაა, რომ იმ
+    შემთხვევაშიც, თუ subscription მოთავსებულია .next() მეთოდის ქვევით, BehaviourSubject მაინც ჩააწვდის ბოლოს
+    და-emit-ებულ value-ს:</p>
+  <p>ქვევით მოცემულია Subject-ის მაგალითი:</p>
+  <pre><code>
+    subject = new Subject&lt;Number&gt;();
+
+    this.subject.next(3);
+    this.subject.next(4);
+    this.subject.subscribe((value) => console.log(value));
+      
+    // no output as .next() method must be executed after the subscription  
+  </code></pre>
+
+  <p>თუმცა BehaviourSubject-ის შემთხვევაში:</p>
+
+  <pre><code>
+    behaviourSubject = new BehaviorSubject&lt;Number&gt;(0);
+
+    this.behaviourSubject.next(1);
+    this.behaviourSubject.next(2);
+    this.behaviourSubject.subscribe((value) => console.log(value));
+
+    // output: 2 (latest emitted value)
+  </code></pre>
+
+  <p>ასევე გასათვალისწინებელია, რომ ვინაიდან Subject და BehaviorSubject წარმოადგენენ როგორც ობზერვერს ასევე ობზერვებლს,
+    მათთან დასაბსქრაიბება პირდაპირ შეიძლება, რაც უგუვებელყოფს მათ ენკაფსულაციას, ამიტომაც საუკეთესო პრაქტიკაა
+    <span class="theory-word">.asObservable()</span> მეთოდის გამოყენება, რადგან ამ მეთოდის მიმაგრების შემდეგ, state-ის
+    გამოყენება შეიძლება მხოლოდ როგორც ობზერვებლის:
+  </p>
+
+  <pre><code>
+    behaviourSubject = new BehaviorSubject&lt;Number&gt;(0);
+    subjectState$: Observable&lt;Number&gt; = this.behaviourSubject.asObservable();
+
+    // behaviourSubject state can be used to emit new values, 
+    // while subjectState$ can be used to subscribe to it. 
+    // this way ensures encapsulation
+  </code></pre>
+
+  <p>თუმცა, არსებობს კიდევ ერთი პრაქტიკა, რომლითაც შეიძლება ამ ორი მეთოდის ობზერვებლად გადაქცევა:</p>
+
+  <pre><code>
+    behaviourSubject = new BehaviorSubject&lt;Number&gt;(0);
+    subjectState$: Observable&lt;Number&gt; = this.behaviourSubject as Observable&lt;Number&gt;
+  </code></pre>
+
+  <p>ეს ერთი შეხედვით საკმაოდ მცირე ცვლილება მოსახერხებელია მხოლოდ Typescript-ში, ვინაიდან ამ შემთხვევაში ჩვენ მოცემული
+    state-ის ენკაფსულაციას ვახდენთ ტიპის მეშვეობით, რაც გვეხმარება თავიდან ავიცილოთ memory ალოკაცია, ისევე როგორც
+    ზედმეტი კომპუტაციები რაც გამოწვეული იქნებოდა ახალი მეთოდის შემოტანით.</p>
+</body>
+
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js"></script>
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/languages/javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="script.js"></script>
+</html>

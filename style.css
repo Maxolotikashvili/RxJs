@@ -1,0 +1,64 @@
+:root {
+    --vertical-margin-from-h1: 30px 0 90px 0;
+    --vertical-margin-from-h2: 50px 0 20px 0;
+    --vertical-margin-from-paragraphs: 6px 0;
+
+    --h1-color: #79c0ff;
+    --h2-color: #00b600;
+    --new-word-color: #79c0ff;
+    
+    --font-size-for-h1: 60px;
+    --font-size-for-h2: 36px;
+    --font-size-for-paragraph: 14px;
+}
+
+h1 {
+    margin: var(--vertical-margin-from-h1);
+    font-size: var(--font-size-for-h1);
+    color: var(--h1-color);
+    text-align: center;
+}
+
+h2 {
+    margin: var(--vertical-margin-from-h2);
+}
+
+p {
+    font-weight: 300;
+    letter-spacing: .3px;
+    margin: var(--vertical-margin-from-paragraphs);
+}
+
+pre {
+    margin: 20px 0;
+}
+
+ol, li {
+    list-style: inside;
+}
+
+ol li {
+    margin: 20px 0;
+}
+
+.new-word, .important-word {
+    font-weight: 600;
+}
+
+.new-word {
+    color: var(--new-word-color);
+}
+
+.theory-word {
+    font-weight: 600;
+    color: var(--new-word-color);
+}
+
+.link {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+* {
+    transition: all .5s ease;
+}
